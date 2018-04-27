@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "java"
+    id "com.github.samueltbrown.cucumber" version "0.9"
+    id "idea"
+    id "war"
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+}
+
+war {
+    baseName = "rbac"
+    version =  "HEAD"
+}
+
+apply from: "gradle/versions.gradle"
+apply from: "gradle/dependency.gradle"
+apply from: "gradle/common.gradle"
+apply from: "gradle/run.gradle"
+apply from: "gradle/ci.gradle"
+
