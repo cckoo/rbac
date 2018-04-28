@@ -2,6 +2,7 @@ package cn.cckoo.rbac.app.domain;
 
 import cn.cckoo.rbac.app.repo.App;
 import cn.cckoo.rbac.app.repo.AppRepo;
+import cn.cckoo.rbac.common.exception.AddAppFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,17 +17,16 @@ public class Apps {
         this.appRepo = appRepo;
     }
 
-    public boolean generateTokenAndAdd(App app) {
+    public void generateTokenAndAdd(App app) throws AddAppFailedException {
         app.generateToken();
-        return add(app);
+        add(app);
     }
 
-    public boolean add(App app) {
+    public void add(App app) throws AddAppFailedException {
         try {
             appRepo.save(app);
-            return true;
         } catch (IllegalArgumentException e) {
-            return false;
+            throw new AddAppFailedException();
         }
     }
 

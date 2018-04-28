@@ -1,5 +1,8 @@
 package cn.cckoo.rbac.common.respond;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Respond {
     protected final int code;
     protected String message;

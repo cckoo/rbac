@@ -7,15 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "app")
 @Setter
 @Getter
 public class App {
@@ -34,8 +30,6 @@ public class App {
     @NotBlank
     private String token;
 
-    @NotNull
-    @Min(0)
     private long operateId;
 
     @Setter(AccessLevel.NONE)

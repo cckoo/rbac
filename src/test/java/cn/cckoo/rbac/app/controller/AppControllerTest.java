@@ -3,6 +3,7 @@ package cn.cckoo.rbac.app.controller;
 import cn.cckoo.rbac.app.builder.AppBuilder;
 import cn.cckoo.rbac.app.domain.Apps;
 import cn.cckoo.rbac.app.repo.App;
+import cn.cckoo.rbac.common.exception.AddAppFailedException;
 import cn.cckoo.rbac.common.respond.Respond;
 import cn.cckoo.rbac.common.respond.SuccessRespond;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -21,13 +22,13 @@ public class AppControllerTest {
 
     AppController controller = new AppController(mockApps);
 
-    private Respond addApp() {
+    private Respond addApp() throws AddAppFailedException {
         return controller.add(app);
     }
 
     public class Add {
         @Test
-        public void add() {
+        public void add() throws AddAppFailedException {
             addApp();
             verify(mockApps).generateTokenAndAdd(app);
         }
@@ -35,7 +36,7 @@ public class AppControllerTest {
 
     public class Success {
         @Test
-        public void should_return_success_respond_at_normal_situation() {
+        public void should_return_success_respond_at_normal_situation() throws AddAppFailedException {
             Respond respond = addApp();
             assertThat(respond).isInstanceOf(SuccessRespond.class);
         }

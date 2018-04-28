@@ -3,11 +3,13 @@ package cn.cckoo.rbac.app.domain;
 import cn.cckoo.rbac.app.builder.AppBuilder;
 import cn.cckoo.rbac.app.repo.App;
 import cn.cckoo.rbac.app.repo.AppRepo;
+import cn.cckoo.rbac.common.exception.AddAppFailedException;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
@@ -18,7 +20,7 @@ public class AppsTest {
     App app = AppBuilder.build();
 
     @Test
-    public void should_generate_token_and_add_app() {
+    public void should_generate_token_and_add_app() throws AddAppFailedException {
         apps.generateTokenAndAdd(app);
 
         assertThat(app.getToken()).isNotNull();
@@ -27,15 +29,9 @@ public class AppsTest {
     }
 
     @Test
-    public void should_return_true_when_save_with_no_exception() {
-        assertThat(apps.add(app)).isTrue();
-    }
-
-    @Test
-    public void should_return_false_when_save_with_exception() {
+    public void should_throw_app_add_failed_exception_when_save_with_exception() throws AddAppFailedException {
         given_app_repo_save_will_failed();
-
-        assertThat(!apps.add(app)).isTrue();
+        assertThrows(AddAppFailedException.class, () -> apps.generateTokenAndAdd(app));
     }
 
     private void given_app_repo_save_will_failed() {
