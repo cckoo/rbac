@@ -13,6 +13,7 @@ dependencies {
             [group: 'org.webjars', name: 'bootstrap', version: libVersions.bootstrap],
             [group: 'org.hibernate', name:'hibernate-validator', version:'5.2.4.Final'],
             [group: 'mysql', name: 'mysql-connector-java', version: '6.0.3'],
+            [group: 'com.google.zxing', name: 'core', version: '3.3.0'],
     )
 
     testCompile (
